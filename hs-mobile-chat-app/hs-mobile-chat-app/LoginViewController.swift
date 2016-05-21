@@ -12,7 +12,7 @@ import Firebase
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
+class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 
     @IBOutlet weak var googleButton: GIDSignInButton!
     @IBOutlet weak var fbButton: FBSDKLoginButton!
@@ -101,7 +101,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 
 }
 
-extension ViewController: FBSDKLoginButtonDelegate{
+extension LoginViewController: FBSDKLoginButtonDelegate{
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         print("Did enter facebook login")
