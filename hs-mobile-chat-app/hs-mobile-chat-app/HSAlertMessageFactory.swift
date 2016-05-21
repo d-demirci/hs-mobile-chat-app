@@ -11,7 +11,6 @@ import UIKit
 enum MessageType {
     case Alert
     case Error
-    case AlertConfirmation
 }
 
 class HSAlertMessageFactory {
@@ -21,7 +20,6 @@ class HSAlertMessageFactory {
         var title:String = ""
         
         switch(messageType) {
-        case .AlertConfirmation: fallthrough
         case .Alert: title = "Alert"
         case .Error: title = "Error"
         }
