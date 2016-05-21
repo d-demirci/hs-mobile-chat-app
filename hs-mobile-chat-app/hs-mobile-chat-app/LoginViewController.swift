@@ -32,33 +32,38 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
         // Uncomment to automatically sign in the user.
         //GIDSignIn.sharedInstance().signInSilently()
-        
-        // TODO(developer) Configure the sign-in button look/feel
-        // ...
 
         
         
     }
     
+    func goToNextPage() {
+        self.performSegueWithIdentifier("SelectUsernameSegue", sender: self)
+    }
+    
+    func presentError(msg:String) {
+        let alert = HSAlertMessageFactory.createMessage(.Error, msg: msg).onOk({_ in})
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
-        
-        
         
         if (error == nil) {
             print("Did enter Google sign In")
             let authentication = user.authentication
             let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken, accessToken: authentication.accessToken)
             FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
-                print("Hello \(user?.displayName)")
-				
-				let navigationVC = self.chatStoryboard.instantiateViewControllerWithIdentifier("NavigationChat")
-
-				self.showViewController(navigationVC, sender: self)
-
+                
+                if error == nil {
+                    print("Hello \(user?.displayName)")
+                    self.goToNextPage()
+                } else {
+                    self.presentError(error!.localizedDescription)
+                }
+                
             }
         } else {
-            print("\(error.localizedDescription)")
-            
+            self.presentError(error!.localizedDescription)
         }
         
     }
@@ -66,8 +71,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     
     func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
                 withError error: NSError!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
         try! FIRAuth.auth()!.signOut()
     }
 
@@ -104,22 +107,23 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
 extension LoginViewController: FBSDKLoginButtonDelegate{
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        print("Did enter facebook login")
-        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
-        FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
-            let alert = HSAlertMessageFactory.createMessage(MessageType.Alert, msg: "Hello \(user?.displayName)").onOk({ _ in
+        
+        if error == nil {
+            print("Did enter facebook login")
+            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+            FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+                if error == nil {
+                    self.goToNextPage()
+                } else {
+                    self.presentError(error!.localizedDescription)
+                }
                 
-            }).onCancel({ _ in
-                
-            })
-            
-            self.presentViewController(alert, animated: true, completion: nil)
-
+            }
+        } else {
+            self.presentError(error!.localizedDescription)
         }
-    }
-    
-    func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
-        return true
+        
+        
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {

@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -42,16 +44,17 @@
                     <connections>
                         <outlet property="fbButton" destination="6sK-4p-BkJ" id="H04-AA-gy1"/>
                         <outlet property="googleButton" destination="OJd-R5-A7m" id="b2A-uN-nbU"/>
+                        <segue destination="Mai-9W-JAH" kind="presentation" identifier="SelectUsernameSegue" id="J0a-dw-HLy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="322" y="258"/>
         </scene>
-        <!--View Controller-->
+        <!--Username View Controller-->
         <scene sceneID="LKK-Fo-tgg">
             <objects>
-                <viewController id="Mai-9W-JAH" sceneMemberID="viewController">
+                <viewController id="Mai-9W-JAH" customClass="UsernameViewController" customModule="hs_mobile_chat_app" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x2F-EV-za0"/>
                         <viewControllerLayoutGuide type="bottom" id="lCj-8Z-OqP"/>
@@ -59,12 +62,48 @@
                     <view key="view" contentMode="scaleToFill" id="zir-pQ-am4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iua-3n-W1Z">
+                                <rect key="frame" x="0.0" y="280" width="600" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bE2-Ch-y9j">
+                                <rect key="frame" x="20" y="51" width="560" height="32.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p9V-Xh-s7Q">
+                                <rect key="frame" x="0.0" y="390" width="600" height="180"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Select"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iua-3n-W1Z" firstAttribute="leading" secondItem="zir-pQ-am4" secondAttribute="leading" id="71T-44-h2R"/>
+                            <constraint firstItem="p9V-Xh-s7Q" firstAttribute="top" secondItem="iua-3n-W1Z" secondAttribute="bottom" constant="50" id="7de-Pl-rxq"/>
+                            <constraint firstItem="iua-3n-W1Z" firstAttribute="height" secondItem="zir-pQ-am4" secondAttribute="height" multiplier="0.1" id="EQc-di-nmT"/>
+                            <constraint firstItem="p9V-Xh-s7Q" firstAttribute="leading" secondItem="zir-pQ-am4" secondAttribute="leading" id="Rn3-70-y3U"/>
+                            <constraint firstItem="lCj-8Z-OqP" firstAttribute="top" secondItem="p9V-Xh-s7Q" secondAttribute="bottom" constant="30" id="aG7-Hw-w5G"/>
+                            <constraint firstItem="bE2-Ch-y9j" firstAttribute="top" secondItem="x2F-EV-za0" secondAttribute="bottom" constant="31" id="e73-5s-LEn"/>
+                            <constraint firstItem="bE2-Ch-y9j" firstAttribute="leading" secondItem="zir-pQ-am4" secondAttribute="leadingMargin" id="fvH-Mf-cOc"/>
+                            <constraint firstAttribute="trailing" secondItem="p9V-Xh-s7Q" secondAttribute="trailing" id="gHT-SK-86i"/>
+                            <constraint firstItem="p9V-Xh-s7Q" firstAttribute="height" secondItem="zir-pQ-am4" secondAttribute="height" multiplier="0.3" id="pC2-xE-uBZ"/>
+                            <constraint firstAttribute="trailing" secondItem="iua-3n-W1Z" secondAttribute="trailing" id="vr1-Rq-T3v"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bE2-Ch-y9j" secondAttribute="trailing" id="wy2-b0-09P"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="buttonSelect" destination="p9V-Xh-s7Q" id="CvP-Cz-4G9"/>
+                        <outlet property="labelSelectUsername" destination="bE2-Ch-y9j" id="Esp-EP-R68"/>
+                        <outlet property="textFieldUsername" destination="iua-3n-W1Z" id="Fft-RC-UiJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qQn-UK-E5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="972" y="258"/>
+            <point key="canvasLocation" x="1156" y="258"/>
         </scene>
     </scenes>
 </document>
