@@ -14,7 +14,7 @@ import TwitterKit
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         FIRApp.configure()
         
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
-        GIDSignIn.sharedInstance().delegate = self
-        
         
         FBSDKApplicationDelegate.sharedInstance().application(application,
                                                               didFinishLaunchingWithOptions:launchOptions)
@@ -41,30 +39,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         return true
     }
     
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        if GIDSignIn.sharedInstance().handleURL(url,
+                                                sourceApplication: sourceApplication,
+                                                annotation: annotation) {
+            return true
+        }
+        return FBSDKApplicationDelegate.sharedInstance().application(application,
+                                                                     openURL: url,
+                                                                     sourceApplication: sourceApplication,
+                                                                     annotation: annotation)
+    }
+    
     func application(application: UIApplication,
                      openURL url: NSURL, options: [String: AnyObject]) -> Bool {
-        return GIDSignIn.sharedInstance().handleURL(url,
-                                                    sourceApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String,
-                                                    annotation: options[UIApplicationOpenURLOptionsAnnotationKey])
-    }
-    
-    
-    
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
-                withError error: NSError!) {
-        if let error = error {
-            print(error.localizedDescription)
-            return
-        }
-        // ...
-    }
-    
-    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
-                withError error: NSError!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-        try! FIRAuth.auth()!.signOut()
-    }
+        return self.application(application,
+                                openURL: url,
+                                sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String?,
+                                annotation: [:])    }
+
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
