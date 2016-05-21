@@ -17,8 +17,10 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // Do I need to repeat this? I've already put in app delegate
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
+        // Not this one though
         GIDSignIn.sharedInstance().uiDelegate = self
         
         // Uncomment to automatically sign in the user.
@@ -33,8 +35,12 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         
         
         if (error == nil) {
-            print("Did Sign In")
-            
+            print("Did sign In")
+            let authentication = user.authentication
+            let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken, accessToken: authentication.accessToken)
+            FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+                print("Hello \(user?.displayName)")
+            }
         } else {
             print("\(error.localizedDescription)")
         }

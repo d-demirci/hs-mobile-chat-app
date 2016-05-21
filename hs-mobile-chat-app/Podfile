@@ -5,7 +5,9 @@
 
 pod 'Firebase/Auth'
 pod 'Firebase/Messaging'
+pod 'FBSDKLoginKit'
 pod 'GoogleSignIn'
+pod 'TwitterKit'
 
 
 target 'hs-mobile-chat-app' do
