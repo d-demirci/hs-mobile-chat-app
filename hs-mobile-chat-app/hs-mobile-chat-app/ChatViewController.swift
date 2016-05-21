@@ -37,6 +37,17 @@ class ChatViewController: JSQMessagesViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		// messages from someone else
+		addMessage(id:"foo", text: "Hey person!")
+		// messages sent from local sender
+		addMessage(id:senderId, text: "Yo!")
+		addMessage(id:senderId, text: "I like turtles!")
+		// animates the receiving of a new message on the view
+		finishReceivingMessage()
+	}
     
 	// MARK: - JSQMessage
 
@@ -67,9 +78,16 @@ class ChatViewController: JSQMessagesViewController {
 	
 	private func setupBubbles(){
 		let factory = JSQMessagesBubbleImageFactory()
-		outgoingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleGreenColor())
-		incomingBubbleImageView = factory.incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleBlueColor())
+		outgoingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleBlueColor())
+		incomingBubbleImageView = factory.incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleGreenColor())
 	}
+	
+	// MARK: - Create Messages
+	func addMessage(id id:String, text:String){
+		let message = JSQMessage(senderId: id, displayName: "Friend", text: text)
+		messages.append(message)
+	}
+	
 
     // MARK: - Navigation
 
