@@ -8,7 +8,7 @@ pod 'Firebase/Messaging'
 pod 'FBSDKLoginKit'
 pod 'GoogleSignIn'
 pod 'TwitterKit'
-
+pod 'JSQMessagesViewController'
 
 target 'hs-mobile-chat-app' do
 

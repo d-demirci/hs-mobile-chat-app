@@ -88,6 +88,5 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-
 }
 

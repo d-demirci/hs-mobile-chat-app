@@ -7,11 +7,14 @@
 //
 
 import UIKit
-
-class ChatViewController: UIViewController {
+import JSQMessagesViewController
+class ChatViewController: JSQMessagesViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		senderId = "uniqueID"
+		senderDisplayName = "DisplayName"
 
         // Do any additional setup after loading the view.
     }
@@ -22,14 +25,10 @@ class ChatViewController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
+	}
 }
