@@ -26,16 +26,25 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
         fbButton.delegate = self
         fbButton.readPermissions = ["public_profile", "email", "user_friends"]
-
-        
-        // Uncomment to automatically sign in the user.
-        //GIDSignIn.sharedInstance().signInSilently()
-
-        
         
     }
     
-    func goToNextPage() {
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if FIRAuth.auth()?.currentUser != nil {
+            goToChat()
+        }
+        
+    }
+    
+    func goToChat() {
+        let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
+        let chatNavController = chatStoryboard.instantiateViewControllerWithIdentifier("NavigationChat")
+        self.showViewController(chatNavController, sender: self)
+    }
+    
+    func goToSetUsername() {
         self.performSegueWithIdentifier("SelectUsernameSegue", sender: self)
     }
     
@@ -54,7 +63,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                 
                 if error == nil {
                     print("Hello \(user?.displayName)")
-                    self.goToNextPage()
+                    self.goToSetUsername()
                 } else {
                     self.presentError(error!.localizedDescription)
                 }
@@ -88,10 +97,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         // Add any custom logic here.
         return handled
     }
-    
-    override func viewDidAppear(animated: Bool) {
-		
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -109,7 +114,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate{
             let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
             FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
                 if error == nil {
-                    self.goToNextPage()
+                    self.goToSetUsername()
                 } else {
                     self.presentError(error!.localizedDescription)
                 }
