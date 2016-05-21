@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import JSQMessagesViewController
 class ChatViewController: JSQMessagesViewController {
 
@@ -14,14 +15,13 @@ class ChatViewController: JSQMessagesViewController {
 	
 	var outgoingBubbleImageView: JSQMessagesBubbleImage! // right side
 	var incomingBubbleImageView: JSQMessagesBubbleImage! // left side
+	let currentUser = FIRAuth.auth()?.currentUser
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-		let mainVC = mainStoryboard.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
-		senderId = mainVC.userID
-		senderDisplayName = ""
+				
+		senderId = currentUser!.providerID
+		senderDisplayName = currentUser?.displayName
 		
 		title = "Chat with friend"
 		

@@ -184,9 +184,9 @@
 		2C30F2C01CEFFB4500604AB1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9FC0DD141CF0A72F00A3642F /* FriendCell */,
 				2C30F2C51CF0C3D000604AB1 /* Username */,
 				2C30F2C41CF0C3A400604AB1 /* Login */,
-				9FC0DD141CF0A72F00A3642F /* FriendCell */,
 				9FC0DD111CF0A38100A3642F /* Chat */,
 			);
 			name = ViewController;

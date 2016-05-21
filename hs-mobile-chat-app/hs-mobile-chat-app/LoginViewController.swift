@@ -16,12 +16,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
 
     @IBOutlet weak var googleButton: GIDSignInButton!
     @IBOutlet weak var fbButton: FBSDKLoginButton!
-	
-	let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-	
-	let userID = FIRAuth.auth()?.currentUser?.providerID
-
-	
+		
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
