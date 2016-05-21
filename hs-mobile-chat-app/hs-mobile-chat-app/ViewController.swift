@@ -23,27 +23,29 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // Do I need to repeat this? I've already put in app delegate
-        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-        // Not this one though
         GIDSignIn.sharedInstance().uiDelegate = self
+        
+        fbButton.delegate = self
+        fbButton.readPermissions = ["public_profile", "email", "user_friends"]
+
         
         // Uncomment to automatically sign in the user.
         //GIDSignIn.sharedInstance().signInSilently()
         
         // TODO(developer) Configure the sign-in button look/feel
         // ...
+
         
         
-        
-            }
+    }
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
         
         
+        
         if (error == nil) {
-            print("Did sign In")
+            print("Did enter Google sign In")
             let authentication = user.authentication
             let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken, accessToken: authentication.accessToken)
             FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
@@ -53,12 +55,20 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 
 				self.showViewController(navigationVC, sender: self)
 
-				
             }
         } else {
             print("\(error.localizedDescription)")
+            
         }
         
+    }
+    
+    
+    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
+                withError error: NSError!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+        try! FIRAuth.auth()!.signOut()
     }
 
     
@@ -73,7 +83,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject) -> Bool {
-        var handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         // Add any custom logic here.
         return handled
     }
@@ -91,3 +101,28 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 
 }
 
+extension ViewController: FBSDKLoginButtonDelegate{
+    
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        print("Did enter facebook login")
+        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+        FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+            let alert = HSAlertMessageFactory.createMessage(MessageType.Alert, msg: "Hello \(user?.displayName)").onOk({ _ in
+                
+            }).onCancel({ _ in
+                
+            })
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+
+        }
+    }
+    
+    func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
+        return true
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        try! FIRAuth.auth()!.signOut()
+    }
+}
