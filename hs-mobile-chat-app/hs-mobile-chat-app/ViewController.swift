@@ -49,9 +49,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
                 print("Hello \(user?.displayName)")
 				
-				let chatViewController = self.chatStoryboard.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
+				let friendsViewController = self.chatStoryboard.instantiateViewControllerWithIdentifier("FriendsTableViewController") as! FriendsTableViewController
 
-				self.showViewController(chatViewController, sender: self)
+				self.showViewController(friendsViewController, sender: self)
 
 				
             }
