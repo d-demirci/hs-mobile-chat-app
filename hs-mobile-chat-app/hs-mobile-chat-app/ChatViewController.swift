@@ -59,6 +59,16 @@ class ChatViewController: JSQMessagesViewController {
 		return messages.count
 	}
 
+	override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+	
+		addMessage(id: senderId, text: text)
+		
+		JSQSystemSoundPlayer.jsq_playMessageSentSound()
+		
+		// 5
+		finishSendingMessage()
+	}
+
 	// MARK: - JSQMessage: JSQMessagesCollectionViewDataSource
 
 	override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
@@ -81,14 +91,29 @@ class ChatViewController: JSQMessagesViewController {
 		outgoingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleBlueColor())
 		incomingBubbleImageView = factory.incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleGreenColor())
 	}
+
+	// MARK: - Collection View
 	
+	override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+		let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
+		
+		let message = messages[indexPath.item]
+			
+		if message.senderId == senderId {
+			cell.textView!.textColor = UIColor.whiteColor()
+		} else {
+			cell.textView!.textColor = UIColor.blackColor()
+		}
+			
+		return cell
+	}
+
 	// MARK: - Create Messages
 	func addMessage(id id:String, text:String){
 		let message = JSQMessage(senderId: id, displayName: "Friend", text: text)
 		messages.append(message)
 	}
 	
-
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
