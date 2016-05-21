@@ -28,17 +28,24 @@ class UsernameViewController: UIViewController {
 		return false
 	}
 	
+	func createUsername(username username:String){
+		
+	}
+	
 	@IBAction func createUsername(sender: UIButton) {
 		
 		let username = textFieldUsername.text
 		
 		if username == "" {
-			// MSG: blank username
+			let alert = HSAlertMessageFactory.createMessage(.Alert, msg: "Please, put an username.").onOk({_ in})
+			self.presentViewController(alert, animated: true, completion: nil)
 		}
 		
 		if isUsernameExist(username: username!){
-			//Exist message
+			let alert = HSAlertMessageFactory.createMessage(.Error, msg: "Username alredy exist. Please, try again.").onOk({_ in})
+			self.presentViewController(alert, animated: true, completion: nil)
 		}else{
+			createUsername(username:username!)
 			let chatNavController = chatStoryboard.instantiateViewControllerWithIdentifier("NavigationChat")
 			self.showViewController(chatNavController, sender: self)
 		}
