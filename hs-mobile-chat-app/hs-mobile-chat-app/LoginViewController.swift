@@ -19,6 +19,9 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
 	
 	let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
 	
+	let userID = FIRAuth.auth()?.currentUser?.providerID
+
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -92,15 +95,13 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     }
     
     override func viewDidAppear(animated: Bool) {
-
-        
+		
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
