@@ -25,22 +25,25 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().uiDelegate = self
         
         fbButton.delegate = self
+        fbButton.readPermissions = ["public_profile", "email", "user_friends"]
+
         
         // Uncomment to automatically sign in the user.
         //GIDSignIn.sharedInstance().signInSilently()
         
         // TODO(developer) Configure the sign-in button look/feel
         // ...
+
         
         
-            }
+    }
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
         
         
         
         if (error == nil) {
-            print("Did sign In")
+            print("Did enter Google sign In")
             let authentication = user.authentication
             let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken, accessToken: authentication.accessToken)
             FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
@@ -80,7 +83,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject) -> Bool {
-        var handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         // Add any custom logic here.
         return handled
     }
@@ -104,9 +107,15 @@ extension ViewController: FBSDKLoginButtonDelegate{
         print("Did enter facebook login")
         let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
         FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
-            // ...
-        }
+            let alert = HSAlertMessageFactory.createMessage(MessageType.Alert, msg: "Hello \(user?.displayName)").onOk({ _ in
+                
+            }).onCancel({ _ in
+                
+            })
+            
+            self.presentViewController(alert, animated: true, completion: nil)
 
+        }
     }
     
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
@@ -114,6 +123,6 @@ extension ViewController: FBSDKLoginButtonDelegate{
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-    
+        try! FIRAuth.auth()!.signOut()
     }
 }
