@@ -19,6 +19,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 	
 	let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
 	
+	let userID = FIRAuth.auth()?.currentUser?.providerID
+
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -52,7 +55,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 				let navigationVC = self.chatStoryboard.instantiateViewControllerWithIdentifier("NavigationChat")
 
 				self.showViewController(navigationVC, sender: self)
-
+				
 				
             }
         } else {
@@ -79,8 +82,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-
-        
+		
     }
 
     override func didReceiveMemoryWarning() {
