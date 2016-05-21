@@ -17,12 +17,11 @@ class FriendsTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+//         self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		
+		navigationItem.title = "FireChat"
 		let nibCell = UINib(nibName: "FriendTableViewCell", bundle: nil)
 		tableView.registerNib(nibCell, forCellReuseIdentifier: "FriendCell")
-		tableView.delegate = self
-		tableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,7 +97,6 @@ class FriendsTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -106,6 +104,5 @@ class FriendsTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
 
 }

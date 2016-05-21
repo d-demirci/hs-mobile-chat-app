@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPQ-Jq-ZAG">
-                                <rect key="frame" x="78" y="64" width="42" height="21"/>
+                                <rect key="frame" x="40" y="130" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -29,7 +29,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmt-ML-Kug" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20" y="563"/>
+            <point key="canvasLocation" x="632" y="-177"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="gfP-UJ-O1B">
@@ -54,7 +54,11 @@
                             <outlet property="delegate" destination="ZkS-1V-1Ix" id="ipX-7M-2hx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="meE-Xk-9lZ"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="meE-Xk-9lZ">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="aG6-O5-Z9u">
+                            <color key="tintColor" red="0.01057741154" green="0.80339205989999996" blue="0.035285243139999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="af9-2o-7PT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -63,7 +67,7 @@
         <!--Navigation Controller-->
         <scene sceneID="D6Y-bH-i0w">
             <objects>
-                <navigationController id="rKr-aK-w8I" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationChat" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rKr-aK-w8I" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hGn-Kh-hSH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
