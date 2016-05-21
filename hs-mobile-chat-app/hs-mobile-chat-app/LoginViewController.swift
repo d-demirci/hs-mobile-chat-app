@@ -27,6 +27,12 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         fbButton.delegate = self
         fbButton.readPermissions = ["public_profile", "email", "user_friends"]
         
+//        do {
+//            try FIRAuth.auth()?.signOut()
+//
+//        }catch {
+//            
+//        }
     }
     
     override func viewDidAppear(animated: Bool) {

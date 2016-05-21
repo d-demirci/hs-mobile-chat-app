@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class UsernameViewController: UIViewController {
 
@@ -27,10 +28,22 @@ class UsernameViewController: UIViewController {
 	func isUsernameExist(username username:String)->Bool{
 		return false
 	}
-	
-	func createUsername(username username:String){
-		
-	}
+    
+    func setUsername(username: String) {
+        
+        let user = FIRAuth.auth()!.currentUser!
+        let changeRequest = user.profileChangeRequest()
+        changeRequest.displayName = username
+        changeRequest.commitChangesWithCompletion(){ (error) in
+            if let error = error {
+                let alert = HSAlertMessageFactory.createMessage(.Error, msg: error.localizedDescription).onOk({_ in})
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+            let chatNavController = self.chatStoryboard.instantiateViewControllerWithIdentifier("NavigationChat")
+            self.showViewController(chatNavController, sender: self)
+        }
+    }
 	
 	@IBAction func createUsername(sender: UIButton) {
 		
@@ -45,10 +58,8 @@ class UsernameViewController: UIViewController {
 			let alert = HSAlertMessageFactory.createMessage(.Error, msg: "Username alredy exist. Please, try again.").onOk({_ in})
 			self.presentViewController(alert, animated: true, completion: nil)
 		}else{
-			createUsername(username:username!)
-			let chatNavController = chatStoryboard.instantiateViewControllerWithIdentifier("NavigationChat")
-			self.showViewController(chatNavController, sender: self)
-		}
+			setUsername(username!)
+        }
 	
 	}
 	
