@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKCoreKit
+import TwitterKit
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -24,6 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         
+        
+        FBSDKApplicationDelegate.sharedInstance().application(application,
+                                                              didFinishLaunchingWithOptions:launchOptions)
+        let key = NSBundle.mainBundle().objectForInfoDictionaryKey("consumerKey"),
+        secret = NSBundle.mainBundle().objectForInfoDictionaryKey("consumerSecret")
+        
+        if let key = key as? String, secret = secret as? String
+            where key.characters.count > 0 && secret.characters.count > 0 {
+            Twitter.sharedInstance().startWithConsumerKey(key, consumerSecret: secret)
+        }
+        
         return true
     }
     
@@ -33,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                                     sourceApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String,
                                                     annotation: options[UIApplicationOpenURLOptionsAnnotationKey])
     }
+    
+    
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
                 withError error: NSError!) {
@@ -47,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 withError error: NSError!) {
         // Perform any operations when the user disconnects from app here.
         // ...
+        try! FIRAuth.auth()!.signOut()
     }
 
     func applicationWillResignActive(application: UIApplication) {

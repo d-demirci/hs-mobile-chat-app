@@ -9,10 +9,14 @@
 import UIKit
 import GoogleSignIn
 import Firebase
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 
-    @IBOutlet weak var signInButton: GIDSignInButton!
+    @IBOutlet weak var googleButton: GIDSignInButton!
+    @IBOutlet weak var fbButton: FBSDKLoginButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,6 +32,8 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         
         // TODO(developer) Configure the sign-in button look/feel
         // ...
+        
+        
         
             }
     
@@ -50,6 +56,18 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
     @IBAction func loginGoogle(sender: GIDSignInButton) {
         GIDSignIn.sharedInstance().signIn()
+    }
+    
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        // Add any custom logic here.
+        return true
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject) -> Bool {
+        var handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        // Add any custom logic here.
+        return handled
     }
     
     override func viewDidAppear(animated: Bool) {
