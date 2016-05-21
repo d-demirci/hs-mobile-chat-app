@@ -7,8 +7,10 @@
 //
 
 import UIKit
-import Firebase
 import JSQMessagesViewController
+
+import Firebase
+
 class ChatViewController: JSQMessagesViewController {
 
 	var messages = [JSQMessage]()
@@ -17,6 +19,9 @@ class ChatViewController: JSQMessagesViewController {
 	var incomingBubbleImageView: JSQMessagesBubbleImage! // left side
 	let currentUser = FIRAuth.auth()?.currentUser
 	
+	// Firebase
+	
+	var ref: FIRDatabaseReference!
     override func viewDidLoad() {
         super.viewDidLoad()
 				
@@ -27,6 +32,7 @@ class ChatViewController: JSQMessagesViewController {
 		
 		setupBubbles()
 		
+		let ref = FIRDatabase.database().reference()
 		// removing collection view avatar size
 		collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
 		collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
@@ -61,8 +67,9 @@ class ChatViewController: JSQMessagesViewController {
 
 	override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
 	
-		addMessage(id: senderId, text: text)
-		
+
+		let data = ["name":text]
+		ref.child("message").childByAutoId().setValue(data)
 		JSQSystemSoundPlayer.jsq_playMessageSentSound()
 		
 		// 5
@@ -112,6 +119,18 @@ class ChatViewController: JSQMessagesViewController {
 	func addMessage(id id:String, text:String){
 		let message = JSQMessage(senderId: id, displayName: "Friend", text: text)
 		messages.append(message)
+	}
+	
+	func sendMessage(data: [String: String]) {
+		var mdata = data
+		mdata["User"] = senderDisplayName
+//		if let photoUrl = AppState.sharedInstance.photoUrl {
+//			mdata[Constants.MessageFields.photoUrl] = photoUrl.absoluteString
+//		}
+		
+		let ref = FIRDatabase.database().reference()
+		// Push data to Firebase Database
+		ref.child("messages").childByAutoId().setValue(mdata)
 	}
 	
     // MARK: - Navigation
