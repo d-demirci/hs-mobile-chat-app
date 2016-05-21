@@ -5,6 +5,8 @@
 
 pod 'Firebase/Auth'
 pod 'Firebase/Messaging'
+pod 'GoogleSignIn'
+
 
 target 'hs-mobile-chat-app' do
 
