@@ -23,16 +23,15 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-        
         fbButton.delegate = self
         fbButton.readPermissions = ["public_profile", "email", "user_friends"]
         
-//        do {
-//            try FIRAuth.auth()?.signOut()
-//
-//        }catch {
-//            
-//        }
+        do {
+            try FIRAuth.auth()?.signOut()
+
+        }catch {
+            
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -81,27 +80,9 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
     }
     
-    
     func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
                 withError error: NSError!) {
         try! FIRAuth.auth()!.signOut()
-    }
-
-    
-    @IBAction func loginGoogle(sender: GIDSignInButton) {
-        GIDSignIn.sharedInstance().signIn()
-    }
-    
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        // Add any custom logic here.
-        return true
-    }
-    
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject) -> Bool {
-        let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-        // Add any custom logic here.
-        return handled
     }
 
     override func didReceiveMemoryWarning() {
@@ -129,7 +110,6 @@ extension LoginViewController: FBSDKLoginButtonDelegate{
         } else {
             self.presentError(error!.localizedDescription)
         }
-        
         
     }
     
