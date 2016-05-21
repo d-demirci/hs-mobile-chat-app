@@ -19,6 +19,8 @@
 		2C30F2AF1CEFD76100604AB1 /* hs_mobile_chat_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2AE1CEFD76100604AB1 /* hs_mobile_chat_appUITests.swift */; };
 		2C30F2C31CEFFCBE00604AB1 /* HSAlertMessageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2C21CEFFCBE00604AB1 /* HSAlertMessageFactory.swift */; };
 		99A7232F196D577BF76B4E79 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB167E1A8D1EBBE05632E30 /* Pods.framework */; };
+		9FC0DD0B1CF09C6F00A3642F /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0DD0A1CF09C6F00A3642F /* ChatViewController.swift */; };
+		9FC0DD0D1CF09C8700A3642F /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FC0DD0C1CF09C8700A3642F /* Chat.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		2C30F2C21CEFFCBE00604AB1 /* HSAlertMessageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSAlertMessageFactory.swift; sourceTree = "<group>"; };
 		5356597C703942DD0100164E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8FB167E1A8D1EBBE05632E30 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FC0DD0A1CF09C6F00A3642F /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		9FC0DD0C1CF09C8700A3642F /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BF9BA020FFB6C90116E6A716 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +134,7 @@
 				2C30F2971CEFD76100604AB1 /* LaunchScreen.storyboard */,
 				2C30F29A1CEFD76100604AB1 /* Info.plist */,
 				18CB84E81CF016EB00BCC0C4 /* hs-mobile-chat-app-Bridging-Header.h */,
+				9FC0DD0C1CF09C8700A3642F /* Chat.storyboard */,
 			);
 			path = "hs-mobile-chat-app";
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 		2C30F2C01CEFFB4500604AB1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9FC0DD0A1CF09C6F00A3642F /* ChatViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -293,6 +299,7 @@
 				2C30F2991CEFD76100604AB1 /* LaunchScreen.storyboard in Resources */,
 				18CB84E41CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */,
 				2C30F2961CEFD76100604AB1 /* Assets.xcassets in Resources */,
+				9FC0DD0D1CF09C8700A3642F /* Chat.storyboard in Resources */,
 				2C30F2941CEFD76100604AB1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,6 +377,7 @@
 			files = (
 				2C30F2911CEFD76100604AB1 /* ViewController.swift in Sources */,
 				2C30F28F1CEFD76100604AB1 /* AppDelegate.swift in Sources */,
+				9FC0DD0B1CF09C6F00A3642F /* ChatViewController.swift in Sources */,
 				2C30F2C31CEFFCBE00604AB1 /* HSAlertMessageFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

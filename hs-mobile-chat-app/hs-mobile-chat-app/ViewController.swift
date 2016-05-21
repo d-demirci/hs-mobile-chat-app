@@ -16,7 +16,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 
     @IBOutlet weak var googleButton: GIDSignInButton!
     @IBOutlet weak var fbButton: FBSDKLoginButton!
-    
+	
+	let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -46,6 +48,12 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken, accessToken: authentication.accessToken)
             FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
                 print("Hello \(user?.displayName)")
+				
+				let chatViewController = self.chatStoryboard.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
+
+				self.showViewController(chatViewController, sender: self)
+
+				
             }
         } else {
             print("\(error.localizedDescription)")
