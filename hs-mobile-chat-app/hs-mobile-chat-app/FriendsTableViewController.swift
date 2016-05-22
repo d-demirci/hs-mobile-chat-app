@@ -10,6 +10,8 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController {
 
+	var friends : NSMutableArray!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +20,8 @@ class FriendsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 //         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+		friends.addObject("Friend1")
+		friends.addObject("Friends2")
 		
 		navigationItem.title = "FireChat"
 		let nibCell = UINib(nibName: "FriendTableViewCell", bundle: nil)
@@ -32,6 +36,7 @@ class FriendsTableViewController: UITableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		// retrive friends from firebase
+		self.tableView.reloadData()
 	}
 
     // MARK: - Table view data source
@@ -43,13 +48,13 @@ class FriendsTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return friends.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell:FriendTableViewCell = tableView.dequeueReusableCellWithIdentifier("FriendCell", forIndexPath: indexPath) as! FriendTableViewCell
 
-		cell.nameLabel.text = "Friend " + String(indexPath.row)
+		cell.nameLabel.text = friends[indexPath.row] as? String
 		
         return cell
     }

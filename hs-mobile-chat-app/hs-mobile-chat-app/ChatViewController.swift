@@ -7,8 +7,10 @@
 //
 
 import UIKit
-import Firebase
 import JSQMessagesViewController
+
+import Firebase
+
 class ChatViewController: JSQMessagesViewController {
 
 	var messages = [JSQMessage]()
@@ -17,6 +19,9 @@ class ChatViewController: JSQMessagesViewController {
 	var incomingBubbleImageView: JSQMessagesBubbleImage! // left side
 	let currentUser = FIRAuth.auth()?.currentUser
 	
+	// Firebase
+	
+	var ref: FIRDatabaseReference!
     override func viewDidLoad() {
         super.viewDidLoad()
 				
@@ -27,6 +32,7 @@ class ChatViewController: JSQMessagesViewController {
 		
 		setupBubbles()
 		
+		ref = FIRDatabase.database().reference()
 		// removing collection view avatar size
 		collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
 		collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
@@ -38,17 +44,12 @@ class ChatViewController: JSQMessagesViewController {
         // Dispose of any resources that can be recreated.
     }
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		// messages from someone else
-		addMessage(id:"foo", text: "Hey person!")
-		// messages sent from local sender
-		addMessage(id:senderId, text: "Yo!")
-		addMessage(id:senderId, text: "I like turtles!")
-		// animates the receiving of a new message on the view
-		finishReceivingMessage()
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		messages.removeAll()
+//		ref.child("messages")
 	}
-    
+	
 	// MARK: - JSQMessage
 
 	override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
@@ -61,7 +62,13 @@ class ChatViewController: JSQMessagesViewController {
 
 	override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
 	
-		addMessage(id: senderId, text: text)
+		
+		var timestamp: NSTimeInterval {
+			return NSDate().timeIntervalSince1970 * 1000
+		}
+				
+		let data = ["message":["name":"cotrim149","text":text,"timestamp":timestamp]]
+		ref.child("messages").childByAutoId().setValue(data)
 		
 		JSQSystemSoundPlayer.jsq_playMessageSentSound()
 		
@@ -112,6 +119,18 @@ class ChatViewController: JSQMessagesViewController {
 	func addMessage(id id:String, text:String){
 		let message = JSQMessage(senderId: id, displayName: "Friend", text: text)
 		messages.append(message)
+	}
+	
+	func sendMessage(data: [String: String]) {
+		var mdata = data
+		mdata["User"] = senderDisplayName
+//		if let photoUrl = AppState.sharedInstance.photoUrl {
+//			mdata[Constants.MessageFields.photoUrl] = photoUrl.absoluteString
+//		}
+		
+		let ref = FIRDatabase.database().reference()
+		// Push data to Firebase Database
+		ref.child("messages").childByAutoId().setValue(mdata)
 	}
 	
     // MARK: - Navigation
