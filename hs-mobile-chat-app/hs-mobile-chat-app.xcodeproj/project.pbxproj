@@ -128,7 +128,7 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		18CB851C1CF16F3A00BCC0C4 /* Views */ = {
+		18CB851C1CF16F3A00BCC0C4 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
 				2C30F2921CEFD76100604AB1 /* Main.storyboard */,
@@ -136,7 +136,7 @@
 				9FC0DD0C1CF09C8700A3642F /* Chat.storyboard */,
 				9FC0DD161CF0A75400A3642F /* FriendTableViewCell.xib */,
 			);
-			name = Views;
+			name = Storyboard;
 			sourceTree = "<group>";
 		};
 		2BF563060F87515AC00B2CB4 /* Frameworks */ = {
@@ -174,7 +174,7 @@
 		2C30F28D1CEFD76100604AB1 /* hs-mobile-chat-app */ = {
 			isa = PBXGroup;
 			children = (
-				18CB851C1CF16F3A00BCC0C4 /* Views */,
+				18CB851C1CF16F3A00BCC0C4 /* Storyboard */,
 				18CB851B1CF16F0100BCC0C4 /* Resources */,
 				2C30F2C11CEFFB5500604AB1 /* Util */,
 				2C30F2C01CEFFB4500604AB1 /* ViewController */,
