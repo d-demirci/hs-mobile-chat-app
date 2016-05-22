@@ -63,12 +63,11 @@ class UserRegistrationManager {
     }
     
     func observeUsers() {
-        refHandle = ref.child("users").observeEventType(.Value, withBlock: { (snapshot) -> Void in
+        refHandle = ref.child("users").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
         
             if snapshot.value != nil {
                 let userSnapshot: FIRDataSnapshot! = snapshot
-                let usersInfo = userSnapshot.value as! Dictionary<String, Dictionary<String,String>>
-                let userInfo = usersInfo["user"]!
+                let userInfo = userSnapshot.value as! Dictionary<String,String>
                 self.foundUsers!.append(User(username: userInfo["username"]!, email: userInfo["email"]!))
             }
         
