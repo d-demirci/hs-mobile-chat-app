@@ -80,7 +80,7 @@ class ChatViewController: JSQMessagesViewController {
          typingRef.queryOrderedByValue().queryEqualToValue(true)
 
         
-        typingRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
+        typingIndicatorRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             
             if snapshot.childrenCount == 1 && self.isTyping {
                 return
