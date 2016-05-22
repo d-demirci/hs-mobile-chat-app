@@ -18,16 +18,17 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	let ref = FIRDatabase.database().reference()
 	private var refHandle: FIRDatabaseHandle!
     var labelNoData:UILabel? = nil
-
 	let currentUser = FIRAuth.auth()?.currentUser!
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.hsGreenColor()
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ResultCell")
         configureTableViewContentMessage()
         updateLabelNoContent()
+        
     }
     
     func configureTableViewContentMessage() {
@@ -35,12 +36,13 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
         if foundFriends.count == 0 {
 
             labelNoData = UILabel(frame: CGRectMake(
-                self.view.frame.width/2,
+                self.view.frame.width,
                 self.view.frame.height/2,
-                150,
+                200,
                 30
                 ))
-            labelNoData!.center = CGPointMake(self.view.frame.width/2,self.view.frame.height/2)
+            labelNoData!.center = CGPointMake(self.view.frame.width/2,self.tableView.frame.height/2)
+            labelNoData!.textAlignment = .Center
             labelNoData!.text = "Username list is empty."
             
         }
@@ -50,7 +52,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
     func updateLabelNoContent() {
         
         if foundFriends.count == 0 {
-            self.view.addSubview(labelNoData!)
+            self.tableView.addSubview(labelNoData!)
             
         } else {
             self.labelNoData?.removeFromSuperview()
