@@ -37,6 +37,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            Twitter.sharedInstance().startWithConsumerKey(key, consumerSecret: secret)
 //        }
         
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSFontAttributeName: UIFont(name: "OpenSans-Bold", size: 20)!,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+        
+        
+        UINavigationBar.appearance().barTintColor = UIColor.hsGreenColor()
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        
         return true
     }
     

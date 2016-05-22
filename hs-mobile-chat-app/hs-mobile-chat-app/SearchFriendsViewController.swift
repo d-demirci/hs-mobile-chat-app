@@ -14,6 +14,9 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var searchTextField: UITextField!
 
+    
+    @IBOutlet weak var buttonSearchFriend: UIButton!
+    
 	var foundFriends = [User]()
 	let ref = FIRDatabase.database().reference()
 	private var refHandle: FIRDatabaseHandle!
@@ -22,7 +25,20 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.hsGreenColor()
+        
+       
+        
+        self.title = "Search Friends"
+        
+        self.navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.whiteColor()
+//        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "OpenSans-Bold", size: 20)!]
+
+        
+  
+        
+        buttonSearchFriend.layer.cornerRadius = 5.0
+        buttonSearchFriend.clipsToBounds = true
+        
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ResultCell")

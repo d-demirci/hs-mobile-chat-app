@@ -24,9 +24,12 @@ class FriendsTableViewController: UITableViewController {
 		friends.addObject("Friend1")
 		friends.addObject("Friends2")
 		
-		navigationItem.title = "FireChat"
 		let nibCell = UINib(nibName: "FriendTableViewCell", bundle: nil)
 		tableView.registerNib(nibCell, forCellReuseIdentifier: "FriendCell")
+        
+        
+        self.navigationItem.title = "HootChat"
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,8 +57,7 @@ class FriendsTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell:FriendTableViewCell = tableView.dequeueReusableCellWithIdentifier("FriendCell", forIndexPath: indexPath) as! FriendTableViewCell
-
-		cell.nameLabel.text = friends[indexPath.row] as? String
+        		cell.nameLabel.text = friends[indexPath.row] as? String
 		
         return cell
     }

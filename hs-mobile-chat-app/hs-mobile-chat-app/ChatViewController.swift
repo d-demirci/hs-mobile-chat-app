@@ -47,7 +47,7 @@ class ChatViewController: JSQMessagesViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		messages.removeAll()
-//		ref.child("messages")
+		ref.child("messages")
 	}
 	
 	// MARK: - JSQMessage
