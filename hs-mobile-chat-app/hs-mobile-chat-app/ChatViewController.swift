@@ -14,16 +14,28 @@ import Firebase
 class ChatViewController: JSQMessagesViewController {
 
 	var messages = [JSQMessage]()
-	
 	var outgoingBubbleImageView: JSQMessagesBubbleImage! // right side
 	var incomingBubbleImageView: JSQMessagesBubbleImage! // left side
 	let currentUser = FIRAuth.auth()?.currentUser
+    
+    private var localTyping = false
+    var isTyping: Bool {
+        get {
+            return localTyping
+        }
+        set {
+            localTyping = newValue
+            typingRef.setValue(newValue)
+        }
+    }
 	
 	// Firebase
 	
 	private var refHandle: FIRDatabaseHandle!
-
 	var ref: FIRDatabaseReference!
+    var typingRef: FIRDatabaseReference!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 				
@@ -59,6 +71,26 @@ class ChatViewController: JSQMessagesViewController {
 		})
 
 	}
+    
+    private func observeTyping() {
+        let typingIndicatorRef = ref.child("typingIndicator")
+        typingRef = typingIndicatorRef.child(removeSpecialCharsFromString(senderId!))
+        typingRef.onDisconnectRemoveValue()
+        
+         typingRef.queryOrderedByValue().queryEqualToValue(true)
+
+        
+        typingRef.observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            
+            if snapshot.childrenCount == 1 && self.isTyping {
+                return
+            }
+
+            self.showTypingIndicator = snapshot.childrenCount > 0
+            self.scrollToBottomAnimated(true)
+        })
+        
+    }
 	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -68,6 +100,7 @@ class ChatViewController: JSQMessagesViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		retriveOldMessages()
+        observeTyping()
 	}
 	
 	
@@ -82,8 +115,7 @@ class ChatViewController: JSQMessagesViewController {
 	}
 
 	override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-	
-		
+        isTyping = false
 		var timestamp: NSTimeInterval {
 			return NSDate().timeIntervalSince1970 * 1000
 		}
@@ -93,7 +125,6 @@ class ChatViewController: JSQMessagesViewController {
 		ref.child("messages").childByAutoId().setValue(data)
 		JSQSystemSoundPlayer.jsq_playMessageSentSound()
 		
-		// 5
 		finishSendingMessage()
 	}
 
@@ -145,19 +176,22 @@ class ChatViewController: JSQMessagesViewController {
 	func sendMessage(data: [String: String]) {
 		var mdata = data
 		mdata["User"] = senderDisplayName
-//		if let photoUrl = AppState.sharedInstance.photoUrl {
-//			mdata[Constants.MessageFields.photoUrl] = photoUrl.absoluteString
-//		}
-		
 		let ref = FIRDatabase.database().reference()
 		// Push data to Firebase Database
 		ref.child("messages").childByAutoId().setValue(mdata)
 	}
+    
+    override func textViewDidChange(textView: UITextView) {
+        super.textViewDidChange(textView)
+        // If the text is not empty, the user is typing
+        isTyping = textView.text != ""
+        print(textView.text != "")
+    }
+    
+    func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> =
+            Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890".characters)
+        return String(text.characters.filter {okayChars.contains($0) })
+    }
 	
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//
-//	}
 }
