@@ -24,6 +24,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
 //        Twitter.sharedInstance().startWithConsumerKey("4RwYP0VbsgWTHuLVIdU2P9zXv", consumerSecret: "64Jc8dLJthSn4cRckxQ6QBchKbUsxJtflnRUcC1hFChhrA4qsp")
         Fabric.with([Twitter.self()])
+
         
         do {
             try FIRAuth.auth()?.signOut()
@@ -79,24 +80,11 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
     }
     
-    
     func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
                 withError error: NSError!) {
         try! FIRAuth.auth()!.signOut()
     }
 
-        
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        // Add any custom logic here.
-        return true
-    }
-    
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject) -> Bool {
-        let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-        // Add any custom logic here.
-        return handled
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -141,6 +129,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     @IBAction func btnGoogleLoginPressed(sender: UIButton) {
         
         GIDSignIn.sharedInstance().signIn()
+
     }
     
     func getFBUserData(){
