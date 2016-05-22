@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18CB84E41CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */; };
-		18CB84E51CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */; };
-		18CB84E61CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */; };
 		18CB851F1CF16F8500BCC0C4 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB851D1CF16F8500BCC0C4 /* OpenSans-Bold.ttf */; };
 		18CB85201CF16F8500BCC0C4 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB851E1CF16F8500BCC0C4 /* OpenSans-Regular.ttf */; };
 		2C30F28F1CEFD76100604AB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F28E1CEFD76100604AB1 /* AppDelegate.swift */; };
@@ -24,6 +21,7 @@
 		2C30F2C91CF0C8DF00604AB1 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2C81CF0C8DF00604AB1 /* UIColor+Extension.swift */; };
 		2C30F2CD1CF14DED00604AB1 /* UserRegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2CC1CF14DED00604AB1 /* UserRegistrationManager.swift */; };
 		2C30F2CF1CF15B3600604AB1 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2CE1CF15B3600604AB1 /* Errors.swift */; };
+		2C30F2D51CF2485100604AB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C30F2D41CF2485100604AB1 /* GoogleService-Info.plist */; };
 		99A7232F196D577BF76B4E79 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB167E1A8D1EBBE05632E30 /* Pods.framework */; };
 		9FC0DD0B1CF09C6F00A3642F /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0DD0A1CF09C6F00A3642F /* ChatViewController.swift */; };
 		9FC0DD0D1CF09C8700A3642F /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FC0DD0C1CF09C8700A3642F /* Chat.storyboard */; };
@@ -53,7 +51,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18CB84E81CF016EB00BCC0C4 /* hs-mobile-chat-app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hs-mobile-chat-app-Bridging-Header.h"; sourceTree = "<group>"; };
 		18CB851D1CF16F8500BCC0C4 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		18CB851E1CF16F8500BCC0C4 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -75,6 +72,7 @@
 		2C30F2C81CF0C8DF00604AB1 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		2C30F2CC1CF14DED00604AB1 /* UserRegistrationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationManager.swift; sourceTree = "<group>"; };
 		2C30F2CE1CF15B3600604AB1 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		2C30F2D41CF2485100604AB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5356597C703942DD0100164E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8FB167E1A8D1EBBE05632E30 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC0DD0A1CF09C6F00A3642F /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -119,9 +117,9 @@
 		18CB851B1CF16F0100BCC0C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2C30F2D41CF2485100604AB1 /* GoogleService-Info.plist */,
 				18CB851D1CF16F8500BCC0C4 /* OpenSans-Bold.ttf */,
 				18CB851E1CF16F8500BCC0C4 /* OpenSans-Regular.ttf */,
-				18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */,
 				2C30F29A1CEFD76100604AB1 /* Info.plist */,
 				2C30F2951CEFD76100604AB1 /* Assets.xcassets */,
 			);
@@ -405,9 +403,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C30F2991CEFD76100604AB1 /* LaunchScreen.storyboard in Resources */,
+				2C30F2D51CF2485100604AB1 /* GoogleService-Info.plist in Resources */,
 				18CB851F1CF16F8500BCC0C4 /* OpenSans-Bold.ttf in Resources */,
 				9FC0DD181CF0A75400A3642F /* FriendTableViewCell.xib in Resources */,
-				18CB84E41CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */,
 				2C30F2961CEFD76100604AB1 /* Assets.xcassets in Resources */,
 				9FC0DD0D1CF09C8700A3642F /* Chat.storyboard in Resources */,
 				18CB85201CF16F8500BCC0C4 /* OpenSans-Regular.ttf in Resources */,
@@ -419,7 +417,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18CB84E51CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +424,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18CB84E61CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,7 +658,7 @@
 				INFOPLIST_FILE = "hs-mobile-chat-app/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.matheus.tasks.hs-mobile-chat-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vanhackaton.MVL;
 				PRODUCT_NAME = HootChat;
 				SWIFT_OBJC_BRIDGING_HEADER = "hs-mobile-chat-app/hs-mobile-chat-app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -683,7 +679,7 @@
 				INFOPLIST_FILE = "hs-mobile-chat-app/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.matheus.tasks.hs-mobile-chat-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vanhackaton.MVL;
 				PRODUCT_NAME = HootChat;
 				SWIFT_OBJC_BRIDGING_HEADER = "hs-mobile-chat-app/hs-mobile-chat-app-Bridging-Header.h";
 			};

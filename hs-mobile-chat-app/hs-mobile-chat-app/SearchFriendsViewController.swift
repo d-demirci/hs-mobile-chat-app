@@ -13,6 +13,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var searchTextField: UITextField!
+    var activityIndicator:UIActivityIndicatorView!
 
     
     @IBOutlet weak var buttonSearchFriend: UIButton!
@@ -42,6 +43,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ResultCell")
+        activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0,150,150))
         configureTableViewContentMessage()
         updateLabelNoContent()
         
@@ -93,15 +95,12 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 
 	@IBAction func searchFriends(sender: UIButton) {
-		foundFriends.removeAll()
-		let username = searchTextField.text!
+
+        let alert = HSAlertMessageFactory.createMessage(.Alert, msg: "This feature is currenlty not ready. We are still working on it =)").onOk({_ in})
+        self.presentViewController(alert, animated: true, completion: nil)
+
 		
-		if username != ""{
-
-			findFriendsWithEmail(username)
-
-		}
-	}
+    }
 
 	// MARK: - TableView Methods
 	
@@ -139,6 +138,10 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 
     func findFriendsWithEmail(email:String) {
         foundFriends.removeAll()
+        activityIndicator.center = tableView.center
+        self.tableView.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        self.labelNoData!.removeFromSuperview()
         refHandle = ref.child("users").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             
             if snapshot.value != nil {
@@ -153,6 +156,8 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
                 }
                 
             }
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.removeFromSuperview()
             self.updateLabelNoContent()
             
         })

@@ -14,18 +14,32 @@ import Firebase
 class ChatViewController: JSQMessagesViewController {
 
 	var messages = [JSQMessage]()
-	
 	var outgoingBubbleImageView: JSQMessagesBubbleImage! // right side
 	var incomingBubbleImageView: JSQMessagesBubbleImage! // left side
 	let currentUser = FIRAuth.auth()?.currentUser
+    
+    private var localTyping = false
+    var isTyping: Bool {
+        get {
+            return localTyping
+        }
+        set {
+            localTyping = newValue
+            typingRef.setValue(newValue)
+        }
+    }
 	
 	// Firebase
 	
+	private var refHandle: FIRDatabaseHandle!
 	var ref: FIRDatabaseReference!
+    var typingRef: FIRDatabaseReference!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 				
-		senderId = currentUser!.providerID
+		senderId = currentUser!.email
 		senderDisplayName = currentUser?.displayName
 		
 		title = "Chat with friend"
@@ -36,19 +50,59 @@ class ChatViewController: JSQMessagesViewController {
 		// removing collection view avatar size
 		collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
 		collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
-
+		
     }
 
+	func retriveOldMessages(){
+		messages.removeAll()
+		refHandle = ref.child("messages").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+			
+			if snapshot.value != nil {
+				
+				let dict = snapshot.value as! [String:AnyObject]
+				
+				let dictMessage = dict["message"] as! [String:AnyObject]
+				
+				let text = dictMessage["text"] as! String
+				let email = dictMessage["name"] as! String
+				self.addMessage(id: email, text: text)
+				self.finishReceivingMessage()
+			}
+		})
+
+	}
+    
+    private func observeTyping() {
+        let typingIndicatorRef = ref.child("typingIndicator")
+        typingRef = typingIndicatorRef.child(removeSpecialCharsFromString(senderId!))
+        typingRef.onDisconnectRemoveValue()
+        
+         typingRef.queryOrderedByValue().queryEqualToValue(true)
+
+        
+        typingIndicatorRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
+            if snapshot.childrenCount == 1 && self.isTyping {
+                self.showTypingIndicator = false
+                return
+            }
+
+            self.showTypingIndicator = snapshot.childrenCount > 0
+            self.scrollToBottomAnimated(true)
+        })
+        
+    }
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		messages.removeAll()
-		ref.child("messages")
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		retriveOldMessages()
+        observeTyping()
 	}
+	
 	
 	// MARK: - JSQMessage
 
@@ -61,18 +115,16 @@ class ChatViewController: JSQMessagesViewController {
 	}
 
 	override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-	
-		
+        isTyping = false
 		var timestamp: NSTimeInterval {
 			return NSDate().timeIntervalSince1970 * 1000
 		}
-				
-		let data = ["message":["name":"cotrim149","text":text,"timestamp":timestamp]]
-		ref.child("messages").childByAutoId().setValue(data)
 		
+		let email = (currentUser?.email!)! as String
+		let data = ["message":["name":email,"text":text,"timestamp":timestamp]]
+		ref.child("messages").childByAutoId().setValue(data)
 		JSQSystemSoundPlayer.jsq_playMessageSentSound()
 		
-		// 5
 		finishSendingMessage()
 	}
 
@@ -124,19 +176,21 @@ class ChatViewController: JSQMessagesViewController {
 	func sendMessage(data: [String: String]) {
 		var mdata = data
 		mdata["User"] = senderDisplayName
-//		if let photoUrl = AppState.sharedInstance.photoUrl {
-//			mdata[Constants.MessageFields.photoUrl] = photoUrl.absoluteString
-//		}
-		
 		let ref = FIRDatabase.database().reference()
 		// Push data to Firebase Database
 		ref.child("messages").childByAutoId().setValue(mdata)
 	}
+    
+    override func textViewDidChange(textView: UITextView) {
+        super.textViewDidChange(textView)
+        // If the text is not empty, the user is typing
+        isTyping = textView.text != ""
+    }
+    
+    func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> =
+            Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890".characters)
+        return String(text.characters.filter {okayChars.contains($0) })
+    }
 	
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//
-//	}
 }
