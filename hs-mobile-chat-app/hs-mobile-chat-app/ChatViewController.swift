@@ -91,7 +91,6 @@ class ChatViewController: JSQMessagesViewController {
 		let email = (currentUser?.email!)! as String
 		let data = ["message":["name":email,"text":text,"timestamp":timestamp]]
 		ref.child("messages").childByAutoId().setValue(data)
-		addMessage(id: email, text: text)
 		JSQSystemSoundPlayer.jsq_playMessageSentSound()
 		
 		// 5
