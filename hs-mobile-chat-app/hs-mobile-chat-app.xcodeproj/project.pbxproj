@@ -10,6 +10,8 @@
 		18CB84E41CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */; };
 		18CB84E51CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */; };
 		18CB84E61CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */; };
+		18CB851F1CF16F8500BCC0C4 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB851D1CF16F8500BCC0C4 /* OpenSans-Bold.ttf */; };
+		18CB85201CF16F8500BCC0C4 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB851E1CF16F8500BCC0C4 /* OpenSans-Regular.ttf */; };
 		2C30F28F1CEFD76100604AB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F28E1CEFD76100604AB1 /* AppDelegate.swift */; };
 		2C30F2911CEFD76100604AB1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2901CEFD76100604AB1 /* LoginViewController.swift */; };
 		2C30F2941CEFD76100604AB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C30F2921CEFD76100604AB1 /* Main.storyboard */; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18CB84E81CF016EB00BCC0C4 /* hs-mobile-chat-app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hs-mobile-chat-app-Bridging-Header.h"; sourceTree = "<group>"; };
+		18CB851D1CF16F8500BCC0C4 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		18CB851E1CF16F8500BCC0C4 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		2C30F28B1CEFD76100604AB1 /* HootChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HootChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C30F28E1CEFD76100604AB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C30F2901CEFD76100604AB1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +110,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18CB851B1CF16F0100BCC0C4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				18CB851D1CF16F8500BCC0C4 /* OpenSans-Bold.ttf */,
+				18CB851E1CF16F8500BCC0C4 /* OpenSans-Regular.ttf */,
+				18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */,
+				2C30F29A1CEFD76100604AB1 /* Info.plist */,
+				2C30F2951CEFD76100604AB1 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		18CB851C1CF16F3A00BCC0C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C30F2921CEFD76100604AB1 /* Main.storyboard */,
+				2C30F2971CEFD76100604AB1 /* LaunchScreen.storyboard */,
+				9FC0DD0C1CF09C8700A3642F /* Chat.storyboard */,
+				9FC0DD161CF0A75400A3642F /* FriendTableViewCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		2BF563060F87515AC00B2CB4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,17 +168,13 @@
 		2C30F28D1CEFD76100604AB1 /* hs-mobile-chat-app */ = {
 			isa = PBXGroup;
 			children = (
+				18CB851C1CF16F3A00BCC0C4 /* Views */,
+				18CB851B1CF16F0100BCC0C4 /* Resources */,
 				2C30F2C11CEFFB5500604AB1 /* Util */,
 				2C30F2C01CEFFB4500604AB1 /* ViewController */,
 				2C30F2BF1CEFFB3900604AB1 /* Model */,
-				18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */,
 				2C30F28E1CEFD76100604AB1 /* AppDelegate.swift */,
-				2C30F2921CEFD76100604AB1 /* Main.storyboard */,
-				2C30F2951CEFD76100604AB1 /* Assets.xcassets */,
-				2C30F2971CEFD76100604AB1 /* LaunchScreen.storyboard */,
-				2C30F29A1CEFD76100604AB1 /* Info.plist */,
 				18CB84E81CF016EB00BCC0C4 /* hs-mobile-chat-app-Bridging-Header.h */,
-				9FC0DD0C1CF09C8700A3642F /* Chat.storyboard */,
 			);
 			path = "hs-mobile-chat-app";
 			sourceTree = "<group>";
@@ -239,7 +262,6 @@
 			isa = PBXGroup;
 			children = (
 				9FC0DD151CF0A75400A3642F /* FriendTableViewCell.swift */,
-				9FC0DD161CF0A75400A3642F /* FriendTableViewCell.xib */,
 			);
 			name = FriendCell;
 			sourceTree = "<group>";
@@ -316,6 +338,11 @@
 				TargetAttributes = {
 					2C30F28A1CEFD76100604AB1 = {
 						CreatedOnToolsVersion = 7.3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					2C30F29E1CEFD76100604AB1 = {
 						CreatedOnToolsVersion = 7.3;
@@ -353,10 +380,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C30F2991CEFD76100604AB1 /* LaunchScreen.storyboard in Resources */,
+				18CB851F1CF16F8500BCC0C4 /* OpenSans-Bold.ttf in Resources */,
 				9FC0DD181CF0A75400A3642F /* FriendTableViewCell.xib in Resources */,
 				18CB84E41CEFD8B600BCC0C4 /* GoogleService-Info.plist in Resources */,
 				2C30F2961CEFD76100604AB1 /* Assets.xcassets in Resources */,
 				9FC0DD0D1CF09C8700A3642F /* Chat.storyboard in Resources */,
+				18CB85201CF16F8500BCC0C4 /* OpenSans-Regular.ttf in Resources */,
 				2C30F2941CEFD76100604AB1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

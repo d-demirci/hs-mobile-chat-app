@@ -22,6 +22,8 @@ class UsernameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        buttonSelect.layer.cornerRadius = 5
+        buttonSelect.clipsToBounds = true
     }
 
 	
@@ -46,7 +48,7 @@ class UsernameViewController: UIViewController {
     }
 	
 	@IBAction func createUsername(sender: UIButton) {
-		
+        
 		let username = textFieldUsername.text
 		
 		if username == "" {
