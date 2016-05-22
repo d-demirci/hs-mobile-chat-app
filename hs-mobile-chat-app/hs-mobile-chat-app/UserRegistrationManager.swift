@@ -11,16 +11,18 @@ import Firebase
 
 struct User {
     var email:String
+	var userID:String
 }
 
 class UserRegistrationManager {
     
-   static let sharedInstance = UserRegistrationManager()
-   let ref = FIRDatabase.database().reference()
-   private var refHandle: FIRDatabaseHandle!
-   var foundUsers:[User]? = [User]()
-    
-    func saveUserEmail(email:String)throws -> Bool {
+	static let sharedInstance = UserRegistrationManager()
+	let ref = FIRDatabase.database().reference()
+	private var refHandle: FIRDatabaseHandle!
+	var foundUsers:[User]? = [User]()
+	var currentUser = User(email: "", userID: "")
+	
+	func saveUserEmail(email:String)throws -> Bool {
         
         guard foundUsers != nil else {
             throw Error.ErrorUserListNil(msg:"User list can't be nil")
@@ -30,7 +32,11 @@ class UserRegistrationManager {
 			let userID = (FIRAuth.auth()?.currentUser!.uid)! as String
 			let data = [userID:["email":email]]
             ref.child("users").setValue(data)
-            return true
+
+			currentUser.email = email
+			currentUser.userID = userID
+
+			return true
         }
         
         return false
@@ -50,8 +56,11 @@ class UserRegistrationManager {
         
             if snapshot.value != nil {
                 let userSnapshot: FIRDataSnapshot! = snapshot
-                let userInfo = userSnapshot.value as! Dictionary<String,String>
-                self.foundUsers!.append(User(email: userInfo["email"]!))
+				
+				let userID = userSnapshot.key as String
+				let email = userSnapshot.value!["email"] as! String
+
+				self.foundUsers!.append(User(email: email,userID: userID))
             }
         
         })
