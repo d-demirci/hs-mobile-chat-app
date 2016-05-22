@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2C30F28A1CEFD76100604AB1"
-               BuildableName = "hs-mobile-chat-app.app"
+               BuildableName = "HootChat.app"
                BlueprintName = "hs-mobile-chat-app"
                ReferencedContainer = "container:hs-mobile-chat-app.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C30F28A1CEFD76100604AB1"
-            BuildableName = "hs-mobile-chat-app.app"
+            BuildableName = "HootChat.app"
             BlueprintName = "hs-mobile-chat-app"
             ReferencedContainer = "container:hs-mobile-chat-app.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C30F28A1CEFD76100604AB1"
-            BuildableName = "hs-mobile-chat-app.app"
+            BuildableName = "HootChat.app"
             BlueprintName = "hs-mobile-chat-app"
             ReferencedContainer = "container:hs-mobile-chat-app.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C30F28A1CEFD76100604AB1"
-            BuildableName = "hs-mobile-chat-app.app"
+            BuildableName = "HootChat.app"
             BlueprintName = "hs-mobile-chat-app"
             ReferencedContainer = "container:hs-mobile-chat-app.xcodeproj">
          </BuildableReference>

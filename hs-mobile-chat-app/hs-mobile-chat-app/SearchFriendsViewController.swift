@@ -27,16 +27,11 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        
         self.title = "Search Friends"
         
         self.navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.whiteColor()
 //        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "OpenSans-Bold", size: 20)!]
 
-        
-  
-        
         buttonSearchFriend.layer.cornerRadius = 5.0
         buttonSearchFriend.clipsToBounds = true
         
