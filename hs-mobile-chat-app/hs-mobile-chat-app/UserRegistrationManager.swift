@@ -27,28 +27,27 @@ class UserRegistrationManager {
         guard foundUsers != nil else {
             throw Error.ErrorUserListNil(msg:"User list can't be nil")
         }
-        
-        if !userEmailExists(email) {
-			let userID = (FIRAuth.auth()?.currentUser!.uid)! as String
-			let data = [userID:["email":email]]
-            ref.child("users").setValue(data)
-
+		
+		let (emailRegistered,id) = userEmailExists(email)
+		
+        if !emailRegistered {
+			let data = ["email":email]
+            ref.child("users").childByAutoId().setValue(data)
 			currentUser.email = email
-			currentUser.userID = userID
-
+			setCurrentUserID()
 			return true
         }
-        
+        currentUser.userID = id
         return false
     }
     
-    func userEmailExists(email:String) ->Bool {
+    func userEmailExists(email:String) ->(Bool,String) {
         
         for user in foundUsers! {
-            if user.email == email {return true}
+            if user.email == email {return (true,user.userID)}
         }
         
-        return false
+        return (false,"")
     }
     
     func observeUsers() {
@@ -62,10 +61,19 @@ class UserRegistrationManager {
 
 				self.foundUsers!.append(User(email: email,userID: userID))
             }
-        
         })
-        
     }
-    
-    
+	
+	func setCurrentUserID(){
+		refHandle = ref.child("users").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+			
+			if snapshot.value != nil {
+				let userSnapshot: FIRDataSnapshot! = snapshot
+				
+				let userID = userSnapshot.key as String
+				self.currentUser.userID = userID
+			}
+		})
+
+	}
 }
