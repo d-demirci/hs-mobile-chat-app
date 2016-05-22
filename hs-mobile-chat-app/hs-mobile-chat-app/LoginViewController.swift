@@ -14,8 +14,6 @@ import TwitterKit
 import Fabric
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
-
-    @IBOutlet weak var googleButton: GIDSignInButton!
 		
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +22,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         
-        Twitter.sharedInstance().startWithConsumerKey("4RwYP0VbsgWTHuLVIdU2P9zXv", consumerSecret: "64Jc8dLJthSn4cRckxQ6QBchKbUsxJtflnRUcC1hFChhrA4qsp")
+//        Twitter.sharedInstance().startWithConsumerKey("4RwYP0VbsgWTHuLVIdU2P9zXv", consumerSecret: "64Jc8dLJthSn4cRckxQ6QBchKbUsxJtflnRUcC1hFChhrA4qsp")
         Fabric.with([Twitter.self()])
         
         do {
@@ -87,11 +85,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         try! FIRAuth.auth()!.signOut()
     }
 
-    
-    @IBAction func loginGoogle(sender: GIDSignInButton) {
-        GIDSignIn.sharedInstance().signIn()
-    }
-    
+        
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         // Add any custom logic here.
@@ -109,7 +103,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func btnFBLoginPressed(sender: AnyObject) {
+    @IBAction func btnFBLoginPressed(sender: UIButton) {
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager .logInWithReadPermissions(["public_profile", "email", "user_friends"], fromViewController: self, handler: { (result, error) -> Void in
             if (error == nil){
@@ -125,7 +119,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         })
     }
     
-    @IBAction func btnTWRTLoginPressed(sender: AnyObject) {
+    @IBAction func btnTWRTLoginPressed(sender: UIButton) {
         
         
         
@@ -141,6 +135,12 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                 print("error: \(error!.localizedDescription)");
             }
         }
+    }
+    
+    
+    @IBAction func btnGoogleLoginPressed(sender: UIButton) {
+        
+        GIDSignIn.sharedInstance().signIn()
     }
     
     func getFBUserData(){

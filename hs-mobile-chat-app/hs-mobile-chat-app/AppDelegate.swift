@@ -27,15 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
-        FBSDKApplicationDelegate.sharedInstance().application(application,
-                                                              didFinishLaunchingWithOptions:launchOptions)
-        let key = NSBundle.mainBundle().objectForInfoDictionaryKey("consumerKey"),
-        secret = NSBundle.mainBundle().objectForInfoDictionaryKey("consumerSecret")
-        
-        if let key = key as? String, secret = secret as? String
-            where key.characters.count > 0 && secret.characters.count > 0 {
-            Twitter.sharedInstance().startWithConsumerKey(key, consumerSecret: secret)
-        }
+//        FBSDKApplicationDelegate.sharedInstance().application(application,
+//                                                              didFinishLaunchingWithOptions:launchOptions)
+//        let key = NSBundle.mainBundle().objectForInfoDictionaryKey("consumerKey"),
+//        secret = NSBundle.mainBundle().objectForInfoDictionaryKey("consumerSecret")
+//        
+//        if let key = key as? String, secret = secret as? String
+//            where key.characters.count > 0 && secret.characters.count > 0 {
+//            Twitter.sharedInstance().startWithConsumerKey(key, consumerSecret: secret)
+//        }
         
         return true
     }

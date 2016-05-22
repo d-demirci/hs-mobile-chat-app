@@ -50,7 +50,7 @@
 /* Begin PBXFileReference section */
 		18CB84E31CEFD8B600BCC0C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18CB84E81CF016EB00BCC0C4 /* hs-mobile-chat-app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hs-mobile-chat-app-Bridging-Header.h"; sourceTree = "<group>"; };
-		2C30F28B1CEFD76100604AB1 /* hs-mobile-chat-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "hs-mobile-chat-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C30F28B1CEFD76100604AB1 /* HootChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HootChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C30F28E1CEFD76100604AB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C30F2901CEFD76100604AB1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2C30F2931CEFD76100604AB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 		2C30F28C1CEFD76100604AB1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C30F28B1CEFD76100604AB1 /* hs-mobile-chat-app.app */,
+				2C30F28B1CEFD76100604AB1 /* HootChat.app */,
 				2C30F29F1CEFD76100604AB1 /* hs-mobile-chat-appTests.xctest */,
 				2C30F2AA1CEFD76100604AB1 /* hs-mobile-chat-appUITests.xctest */,
 			);
@@ -265,7 +265,7 @@
 			);
 			name = "hs-mobile-chat-app";
 			productName = "hs-mobile-chat-app";
-			productReference = 2C30F28B1CEFD76100604AB1 /* hs-mobile-chat-app.app */;
+			productReference = 2C30F28B1CEFD76100604AB1 /* HootChat.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2C30F29E1CEFD76100604AB1 /* hs-mobile-chat-appTests */ = {
@@ -604,7 +604,7 @@
 				INFOPLIST_FILE = "hs-mobile-chat-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.matheus.tasks.hs-mobile-chat-app";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HootChat;
 				SWIFT_OBJC_BRIDGING_HEADER = "hs-mobile-chat-app/hs-mobile-chat-app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -623,7 +623,7 @@
 				INFOPLIST_FILE = "hs-mobile-chat-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.matheus.tasks.hs-mobile-chat-app";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HootChat;
 				SWIFT_OBJC_BRIDGING_HEADER = "hs-mobile-chat-app/hs-mobile-chat-app-Bridging-Header.h";
 			};
 			name = Release;
