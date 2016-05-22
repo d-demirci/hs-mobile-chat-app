@@ -15,12 +15,18 @@ import Fabric
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 		
+    var activityIndicator:UIActivityIndicatorView!
+    
+    @IBOutlet weak var googleButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
+        
+        activityIndicator = UIActivityIndicatorView(frame: googleButton.frame)
         
 //        Twitter.sharedInstance().startWithConsumerKey("4RwYP0VbsgWTHuLVIdU2P9zXv", consumerSecret: "64Jc8dLJthSn4cRckxQ6QBchKbUsxJtflnRUcC1hFChhrA4qsp")
         Fabric.with([Twitter.self()])
@@ -72,12 +78,12 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                 } else {
                     self.presentError(error!.localizedDescription)
                 }
-                
+                self.activityIndicator.removeFromSuperview()
+                self.googleButton.enabled = true
             }
         } else {
             self.presentError(error!.localizedDescription)
         }
-        
     }
     
     func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
@@ -128,6 +134,9 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     
     @IBAction func btnGoogleLoginPressed(sender: UIButton) {
         
+        googleButton.enabled = false
+        self.view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         GIDSignIn.sharedInstance().signIn()
 
     }
