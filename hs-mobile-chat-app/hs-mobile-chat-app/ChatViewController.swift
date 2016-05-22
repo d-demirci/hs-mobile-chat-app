@@ -86,7 +86,7 @@ class ChatViewController: JSQMessagesViewController {
                 return
             }
 
-            self.showTypingIndicator = snapshot.childrenCount > 1
+            self.showTypingIndicator = snapshot.childrenCount > 0
             self.scrollToBottomAnimated(true)
         })
         
