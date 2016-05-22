@@ -5,6 +5,7 @@
 
 pod 'Firebase/Auth'
 pod 'Firebase/Messaging'
+pod 'Firebase/Database'
 pod 'FBSDKLoginKit'
 pod 'GoogleSignIn'
 pod 'TwitterKit'

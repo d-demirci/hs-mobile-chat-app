@@ -15,13 +15,17 @@ import Fabric
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 		
+    var activityIndicator:UIActivityIndicatorView!
+    @IBOutlet weak var googleButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-        
+        activityIndicator = UIActivityIndicatorView(frame: googleButton.frame)
+		
 //        Twitter.sharedInstance().startWithConsumerKey("4RwYP0VbsgWTHuLVIdU2P9zXv", consumerSecret: "64Jc8dLJthSn4cRckxQ6QBchKbUsxJtflnRUcC1hFChhrA4qsp")
         Fabric.with([Twitter.self()])
 
@@ -49,9 +53,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         self.showViewController(chatNavController, sender: self)
     }
     
-    func goToSetUsername() {
-        self.performSegueWithIdentifier("SelectUsernameSegue", sender: self)
-    }
     
     func presentError(msg:String) {
         let alert = HSAlertMessageFactory.createMessage(.Error, msg: msg).onOk({_ in})
@@ -67,17 +68,17 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
                 
                 if error == nil {
-                    print("Hello \(user?.displayName)")
-                    self.goToSetUsername()
+                    self.setUsername()
+                    self.goToChat()
                 } else {
                     self.presentError(error!.localizedDescription)
                 }
-                
+                self.activityIndicator.removeFromSuperview()
+                self.googleButton.enabled = true
             }
         } else {
             self.presentError(error!.localizedDescription)
         }
-        
     }
     
     func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
@@ -128,6 +129,9 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     
     @IBAction func btnGoogleLoginPressed(sender: UIButton) {
         
+        googleButton.enabled = false
+        self.view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         GIDSignIn.sharedInstance().signIn()
 
     }
@@ -145,13 +149,36 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     func loginToFirebase(credential: FIRAuthCredential){
         FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
             if error == nil {
-                self.goToSetUsername()
+                self.setUsername()
+                self.goToChat()
             } else {
                 self.presentError(error!.localizedDescription)
             }
             
         }
 
+    }
+    
+    func setUsername() {
+        
+        let user = FIRAuth.auth()!.currentUser!
+        let changeRequest = user.profileChangeRequest()
+        changeRequest.displayName = user.email!.componentsSeparatedByString("@")[0]
+        changeRequest.commitChangesWithCompletion(){ (error) in
+            if let error = error {
+                let alert = HSAlertMessageFactory.createMessage(.Error, msg: error.localizedDescription).onOk({_ in})
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+			UserRegistrationManager.sharedInstance.observeUsers()
+			do{
+				try UserRegistrationManager.sharedInstance.saveUserEmail(user.email!)
+			}catch{
+				
+			}
+			
+            
+        }
     }
 
 }

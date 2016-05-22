@@ -95,6 +95,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="googleButton" destination="P1K-pH-pjP" id="67p-6u-xY4"/>
                         <segue destination="Mai-9W-JAH" kind="presentation" identifier="SelectUsernameSegue" id="J0a-dw-HLy"/>
                     </connections>
                 </viewController>
