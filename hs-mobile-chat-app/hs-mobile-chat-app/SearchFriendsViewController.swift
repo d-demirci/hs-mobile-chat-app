@@ -42,7 +42,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
-		if _refHandle != 0 {
+		if _refHandle != nil {
 			ref.removeObserverWithHandle(_refHandle)
 		}
 	}
