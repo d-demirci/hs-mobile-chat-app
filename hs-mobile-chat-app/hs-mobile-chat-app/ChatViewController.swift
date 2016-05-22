@@ -21,11 +21,13 @@ class ChatViewController: JSQMessagesViewController {
 	
 	// Firebase
 	
+	private var refHandle: FIRDatabaseHandle!
+
 	var ref: FIRDatabaseReference!
     override func viewDidLoad() {
         super.viewDidLoad()
 				
-		senderId = currentUser!.providerID
+		senderId = currentUser!.email
 		senderDisplayName = currentUser?.displayName
 		
 		title = "Chat with friend"
@@ -36,19 +38,38 @@ class ChatViewController: JSQMessagesViewController {
 		// removing collection view avatar size
 		collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
 		collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
-
+		
     }
 
+	func retriveOldMessages(){
+		messages.removeAll()
+		refHandle = ref.child("messages").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+			
+			if snapshot.value != nil {
+				
+				let dict = snapshot.value as! [String:AnyObject]
+				
+				let dictMessage = dict["message"] as! [String:AnyObject]
+				
+				let text = dictMessage["text"] as! String
+				let email = dictMessage["name"] as! String
+				self.addMessage(id: email, text: text)
+				self.finishReceivingMessage()
+			}
+		})
+
+	}
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		messages.removeAll()
-//		ref.child("messages")
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		retriveOldMessages()
 	}
+	
 	
 	// MARK: - JSQMessage
 
@@ -66,10 +87,11 @@ class ChatViewController: JSQMessagesViewController {
 		var timestamp: NSTimeInterval {
 			return NSDate().timeIntervalSince1970 * 1000
 		}
-				
-		let data = ["message":["name":"cotrim149","text":text,"timestamp":timestamp]]
-		ref.child("messages").childByAutoId().setValue(data)
 		
+		let email = (currentUser?.email!)! as String
+		let data = ["message":["name":email,"text":text,"timestamp":timestamp]]
+		ref.child("messages").childByAutoId().setValue(data)
+		addMessage(id: email, text: text)
 		JSQSystemSoundPlayer.jsq_playMessageSentSound()
 		
 		// 5

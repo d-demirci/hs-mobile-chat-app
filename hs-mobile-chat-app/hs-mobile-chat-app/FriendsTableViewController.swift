@@ -21,10 +21,9 @@ class FriendsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 //         self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		friends = NSMutableArray()
-		friends.addObject("Friend1")
-		friends.addObject("Friends2")
+		friends.addObject("Sala Geral")
 		
-		navigationItem.title = "FireChat"
+		navigationItem.title = "HootChat"
 		let nibCell = UINib(nibName: "FriendTableViewCell", bundle: nil)
 		tableView.registerNib(nibCell, forCellReuseIdentifier: "FriendCell")
     }
