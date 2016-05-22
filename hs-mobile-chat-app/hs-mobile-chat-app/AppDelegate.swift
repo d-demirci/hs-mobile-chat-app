@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 import FBSDKCoreKit
 import TwitterKit
+import Fabric
 
 
 @UIApplicationMain

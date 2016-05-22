@@ -9,13 +9,13 @@
 import UIKit
 import GoogleSignIn
 import Firebase
-import FBSDKCoreKit
 import FBSDKLoginKit
+import TwitterKit
+import Fabric
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 
     @IBOutlet weak var googleButton: GIDSignInButton!
-    @IBOutlet weak var fbButton: FBSDKLoginButton!
 		
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,15 +24,15 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         
-        fbButton.delegate = self
-        fbButton.readPermissions = ["public_profile", "email", "user_friends"]
+        Twitter.sharedInstance().startWithConsumerKey("4RwYP0VbsgWTHuLVIdU2P9zXv", consumerSecret: "64Jc8dLJthSn4cRckxQ6QBchKbUsxJtflnRUcC1hFChhrA4qsp")
+        Fabric.with([Twitter.self()])
         
-//        do {
-//            try FIRAuth.auth()?.signOut()
-//
-//        }catch {
-//            
-//        }
+        do {
+            try FIRAuth.auth()?.signOut()
+
+        }catch {
+            
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -108,32 +108,62 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-}
-
-extension LoginViewController: FBSDKLoginButtonDelegate{
     
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        
-        if error == nil {
-            print("Did enter facebook login")
-            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
-            FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
-                if error == nil {
-                    self.goToSetUsername()
-                } else {
-                    self.presentError(error!.localizedDescription)
+    @IBAction func btnFBLoginPressed(sender: AnyObject) {
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager .logInWithReadPermissions(["public_profile", "email", "user_friends"], fromViewController: self, handler: { (result, error) -> Void in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result
+                if(fbloginresult.grantedPermissions.contains("email"))
+                {
+                    self.getFBUserData()
+                    let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+                    self.loginToFirebase(credential)
+                    fbLoginManager.logOut()
                 }
-                
             }
-        } else {
-            self.presentError(error!.localizedDescription)
-        }
-        
-        
+        })
     }
     
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        try! FIRAuth.auth()!.signOut()
+    @IBAction func btnTWRTLoginPressed(sender: AnyObject) {
+        
+        
+        
+        Twitter.sharedInstance().logInWithCompletion {
+            (session, error) -> Void in
+            if (session != nil) {
+
+                let credential = FIRTwitterAuthProvider.credentialWithToken(session!.authToken, secret: session!.authTokenSecret)
+
+                self.loginToFirebase(credential)
+                
+            } else {
+                print("error: \(error!.localizedDescription)");
+            }
+        }
     }
+    
+    func getFBUserData(){
+        if((FBSDKAccessToken.currentAccessToken()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).startWithCompletionHandler({ (connection, result, error) -> Void in
+                if (error == nil){
+                    print(result)
+                }
+            })
+        }
+    }
+    
+    func loginToFirebase(credential: FIRAuthCredential){
+        FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+            if error == nil {
+                self.goToSetUsername()
+            } else {
+                self.presentError(error!.localizedDescription)
+            }
+            
+        }
+
+    }
+
 }
+
