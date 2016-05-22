@@ -14,20 +14,47 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var searchTextField: UITextField!
 
-	var foundUsers:NSMutableArray!
-	
+	var foundFriends = [User]()
 	let ref = FIRDatabase.database().reference()
-	private var _refHandle: FIRDatabaseHandle!
+	private var refHandle: FIRDatabaseHandle!
+    var labelNoData:UILabel? = nil
 
 	let currentUser = FIRAuth.auth()?.currentUser!
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		foundUsers = NSMutableArray()
-		
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ResultCell")
+        configureTableViewContentMessage()
+        updateLabelNoContent()
+    }
+    
+    func configureTableViewContentMessage() {
+    
+        if foundFriends.count == 0 {
+
+            labelNoData = UILabel(frame: CGRectMake(
+                self.view.frame.width/2,
+                self.view.frame.height/2,
+                150,
+                30
+                ))
+            labelNoData!.center = CGPointMake(self.view.frame.width/2,self.view.frame.height/2)
+            labelNoData!.text = "Username list is empty."
+            
+        }
+        
+    }
+    
+    func updateLabelNoContent() {
+        
+        if foundFriends.count == 0 {
+            self.view.addSubview(labelNoData!)
+            
+        } else {
+            self.labelNoData?.removeFromSuperview()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,38 +69,18 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
-		if _refHandle != nil {
-			ref.removeObserverWithHandle(_refHandle)
+		if refHandle != nil {
+			ref.removeObserverWithHandle(refHandle)
 		}
 	}
 
 	@IBAction func searchFriends(sender: UIButton) {
-		foundUsers.removeAllObjects()
+		foundFriends.removeAll()
 		let username = searchTextField.text!
 		
 		if username != ""{
 
-			_refHandle = ref.child("friends").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-				
-				if snapshot.value != nil {
-					
-					let myEmail = snapshot.value!["email"] as! String
-					
-					if myEmail != self.currentUser?.email {
-						let friendUsername = snapshot.value!["friend"] as! String
-						
-						if friendUsername.containsString(username){
-							self.foundUsers.addObject(friendUsername)
-						}
-						
-						let indexPath = NSIndexPath(forRow: self.foundUsers.count-1, inSection: 0)
-						
-						self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-						
-					}
-					
-				}
-			})
+			findFriendsWithEmail(username)
 
 		}
 	}
@@ -85,14 +92,14 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return foundUsers.count
+		return foundFriends.count
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
 		let cell = self.tableView.dequeueReusableCellWithIdentifier("ResultCell", forIndexPath: indexPath)
 		
-		cell.textLabel?.text = foundUsers[indexPath.row] as! String
+		cell.textLabel?.text = foundFriends[indexPath.row].email
 
 		
 		return cell
@@ -112,14 +119,27 @@ class SearchFriendsViewController: UIViewController, UITableViewDataSource, UITa
 		
 	}
 
-	/*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func findFriendsWithEmail(email:String) {
+        foundFriends.removeAll()
+        refHandle = ref.child("users").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            
+            if snapshot.value != nil {
+                let userSnapshot: FIRDataSnapshot! = snapshot
+                
+                let userID = userSnapshot.key as String
+                let friendEmail = userSnapshot.value!["email"] as! String
+                
+                if friendEmail == email {
+                    self.foundFriends.append(User(email: email,userID: userID))
+                    self.tableView.reloadData()
+                }
+                
+            }
+            self.updateLabelNoContent()
+            
+        })
+        
     }
-    */
+
 
 }

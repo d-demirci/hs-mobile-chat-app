@@ -172,7 +172,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             }
 			
 			UserRegistrationManager.sharedInstance.observeUsers()
-//			UserRegistrationManager.sharedInstance.checkEmailAlredyRegistred()
 			
 			do{
 				try UserRegistrationManager.sharedInstance.saveUserEmail(user.email!)
