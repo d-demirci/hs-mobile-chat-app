@@ -32,7 +32,7 @@ class ChatViewController: JSQMessagesViewController {
 		
 		setupBubbles()
 		
-		let ref = FIRDatabase.database().reference()
+		ref = FIRDatabase.database().reference()
 		// removing collection view avatar size
 		collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
 		collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
@@ -44,17 +44,12 @@ class ChatViewController: JSQMessagesViewController {
         // Dispose of any resources that can be recreated.
     }
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		// messages from someone else
-		addMessage(id:"foo", text: "Hey person!")
-		// messages sent from local sender
-		addMessage(id:senderId, text: "Yo!")
-		addMessage(id:senderId, text: "I like turtles!")
-		// animates the receiving of a new message on the view
-		finishReceivingMessage()
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		messages.removeAll()
+//		ref.child("messages")
 	}
-    
+	
 	// MARK: - JSQMessage
 
 	override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
@@ -67,9 +62,13 @@ class ChatViewController: JSQMessagesViewController {
 
 	override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
 	
-
-		let data = ["name":text]
-		ref.child("message").childByAutoId().setValue(data)
+		
+		var timestamp: NSTimeInterval {
+			return NSDate().timeIntervalSince1970 * 1000
+		}
+				
+		let data = ["message":["name":"cotrim149","text":text,"timestamp":timestamp]]
+		ref.child("messages").childByAutoId().setValue(data)
 		JSQSystemSoundPlayer.jsq_playMessageSentSound()
 		
 		// 5
