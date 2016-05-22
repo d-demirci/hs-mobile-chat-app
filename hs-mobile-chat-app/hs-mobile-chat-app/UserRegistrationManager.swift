@@ -19,30 +19,47 @@ class UserRegistrationManager {
    static let sharedInstance = UserRegistrationManager()
    let ref = FIRDatabase.database().reference()
    private var refHandle: FIRDatabaseHandle!
-    var foundUsers:[User]? = [User]()
+   var foundUsers:[User]? = [User]()
     
-    func saveUser(username:String,email:String) -> Bool {
-        let data = ["username":username,"email":email]
-        ref.child("user").childByAutoId().setValue(data)
-        return true
-    }
-    
-    func checkUsersForExistingUserEmail(email:String) ->Bool {
+    func saveUserEmail(email:String)throws -> Bool {
         
-        for user in foundUsers! {
-            if user.email == email {return false}
+        guard foundUsers != nil else {
+            throw Error.ErrorUserListNil(msg:"User lis can't be nil")
         }
         
-        return true
-    }
-    
-    func checkUsersForExistingUsername(username:String) ->Bool {
-        
-        for user in foundUsers! {
-            if user.username == username {return false}
+        if !userEmailExists(email) {
+            let data = ["email":email,"username":""]
+            ref.child("users").childByAutoId().setValue(data)
+            return true
         }
         
-        return true
+        return false
+    }
+    
+    func saveUsername(username:String,forEmail email:String) {
+        
+        let userQuery = (ref.child("users").child(email))
+        
+        
+    }
+    
+
+    func userEmailExists(email:String) ->Bool {
+        
+        for user in foundUsers! {
+            if user.email == email {return true}
+        }
+        
+        return false
+    }
+    
+    func userUsernameExists(username:String) ->Bool {
+        
+        for user in foundUsers! {
+            if user.username == username {return true}
+        }
+        
+        return false
     }
     
     func observeUsers() {
