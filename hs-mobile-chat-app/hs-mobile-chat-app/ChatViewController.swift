@@ -81,8 +81,8 @@ class ChatViewController: JSQMessagesViewController {
 
         
         typingIndicatorRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
-            
             if snapshot.childrenCount == 1 && self.isTyping {
+                self.showTypingIndicator = false
                 return
             }
 
