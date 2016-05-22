@@ -17,6 +17,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
 		
     var activityIndicator:UIActivityIndicatorView!
     @IBOutlet weak var googleButton: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +26,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         activityIndicator = UIActivityIndicatorView(frame: googleButton.frame)
-		
-//        Twitter.sharedInstance().startWithConsumerKey("4RwYP0VbsgWTHuLVIdU2P9zXv", consumerSecret: "64Jc8dLJthSn4cRckxQ6QBchKbUsxJtflnRUcC1hFChhrA4qsp")
         Fabric.with([Twitter.self()])
-
         
         do {
             try FIRAuth.auth()?.signOut()
@@ -130,7 +128,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     @IBAction func btnGoogleLoginPressed(sender: UIButton) {
         
         googleButton.enabled = false
-        self.view.addSubview(activityIndicator)
+        activityIndicator.center = googleButton.center
+        self.stackView.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         GIDSignIn.sharedInstance().signIn()
 
