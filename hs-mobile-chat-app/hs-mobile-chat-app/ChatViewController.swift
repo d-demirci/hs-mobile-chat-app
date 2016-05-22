@@ -69,6 +69,7 @@ class ChatViewController: JSQMessagesViewController {
 				
 		let data = ["message":["name":"cotrim149","text":text,"timestamp":timestamp]]
 		ref.child("messages").childByAutoId().setValue(data)
+		
 		JSQSystemSoundPlayer.jsq_playMessageSentSound()
 		
 		// 5
