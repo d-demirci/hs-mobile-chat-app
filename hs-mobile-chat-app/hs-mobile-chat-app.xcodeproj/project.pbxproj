@@ -20,6 +20,7 @@
 		2C30F2C31CEFFCBE00604AB1 /* HSAlertMessageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2C21CEFFCBE00604AB1 /* HSAlertMessageFactory.swift */; };
 		2C30F2C71CF0C41000604AB1 /* UsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2C61CF0C41000604AB1 /* UsernameViewController.swift */; };
 		2C30F2C91CF0C8DF00604AB1 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2C81CF0C8DF00604AB1 /* UIColor+Extension.swift */; };
+		2C30F2CD1CF14DED00604AB1 /* UserRegistrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C30F2CC1CF14DED00604AB1 /* UserRegistrationManager.swift */; };
 		99A7232F196D577BF76B4E79 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB167E1A8D1EBBE05632E30 /* Pods.framework */; };
 		9FC0DD0B1CF09C6F00A3642F /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0DD0A1CF09C6F00A3642F /* ChatViewController.swift */; };
 		9FC0DD0D1CF09C8700A3642F /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FC0DD0C1CF09C8700A3642F /* Chat.storyboard */; };
@@ -66,6 +67,7 @@
 		2C30F2C21CEFFCBE00604AB1 /* HSAlertMessageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSAlertMessageFactory.swift; sourceTree = "<group>"; };
 		2C30F2C61CF0C41000604AB1 /* UsernameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameViewController.swift; sourceTree = "<group>"; };
 		2C30F2C81CF0C8DF00604AB1 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		2C30F2CC1CF14DED00604AB1 /* UserRegistrationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationManager.swift; sourceTree = "<group>"; };
 		5356597C703942DD0100164E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8FB167E1A8D1EBBE05632E30 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC0DD0A1CF09C6F00A3642F /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		2C30F2BF1CEFFB3900604AB1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2C30F2CC1CF14DED00604AB1 /* UserRegistrationManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				2C30F2C71CF0C41000604AB1 /* UsernameViewController.swift in Sources */,
 				2C30F2911CEFD76100604AB1 /* LoginViewController.swift in Sources */,
 				2C30F28F1CEFD76100604AB1 /* AppDelegate.swift in Sources */,
+				2C30F2CD1CF14DED00604AB1 /* UserRegistrationManager.swift in Sources */,
 				2C30F2C91CF0C8DF00604AB1 /* UIColor+Extension.swift in Sources */,
 				9FC0DD0B1CF09C6F00A3642F /* ChatViewController.swift in Sources */,
 				9FC0DD171CF0A75400A3642F /* FriendTableViewCell.swift in Sources */,
