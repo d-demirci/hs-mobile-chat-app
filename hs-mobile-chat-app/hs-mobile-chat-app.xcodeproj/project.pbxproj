@@ -475,6 +475,7 @@
 				2C30F2911CEFD76100604AB1 /* LoginViewController.swift in Sources */,
 				2C30F28F1CEFD76100604AB1 /* AppDelegate.swift in Sources */,
 				2C30F2CD1CF14DED00604AB1 /* UserRegistrationManager.swift in Sources */,
+				9FC0DD241CF1314200A3642F /* SearchFriendsViewController.swift in Sources */,
 				2C30F2C91CF0C8DF00604AB1 /* UIColor+Extension.swift in Sources */,
 				9FC0DD0B1CF09C6F00A3642F /* ChatViewController.swift in Sources */,
 				2C30F2CF1CF15B3600604AB1 /* Errors.swift in Sources */,

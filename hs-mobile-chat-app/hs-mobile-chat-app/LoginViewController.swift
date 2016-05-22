@@ -27,7 +27,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance().uiDelegate = self
         
         activityIndicator = UIActivityIndicatorView(frame: googleButton.frame)
-        
+		
 //        Twitter.sharedInstance().startWithConsumerKey("4RwYP0VbsgWTHuLVIdU2P9zXv", consumerSecret: "64Jc8dLJthSn4cRckxQ6QBchKbUsxJtflnRUcC1hFChhrA4qsp")
         Fabric.with([Twitter.self()])
 
