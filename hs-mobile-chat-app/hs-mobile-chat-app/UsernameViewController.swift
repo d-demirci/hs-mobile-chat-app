@@ -33,13 +33,14 @@ class UsernameViewController: UIViewController {
         
         let user = FIRAuth.auth()!.currentUser!
         let changeRequest = user.profileChangeRequest()
-        changeRequest.displayName = username
+        changeRequest.displayName = user.email
         changeRequest.commitChangesWithCompletion(){ (error) in
             if let error = error {
                 let alert = HSAlertMessageFactory.createMessage(.Error, msg: error.localizedDescription).onOk({_ in})
                 self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
+						
             let chatNavController = self.chatStoryboard.instantiateViewControllerWithIdentifier("NavigationChat")
             self.showViewController(chatNavController, sender: self)
         }

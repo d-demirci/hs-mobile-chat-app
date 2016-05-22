@@ -27,8 +27,9 @@ class UserRegistrationManager {
         }
         
         if !userEmailExists(email) {
-            let data = ["email":email]
-            ref.child("users").childByAutoId().setValue(data)
+			let userID = (FIRAuth.auth()?.currentUser!.uid)! as String
+			let data = [userID:["email":email]]
+            ref.child("users").setValue(data)
             return true
         }
         

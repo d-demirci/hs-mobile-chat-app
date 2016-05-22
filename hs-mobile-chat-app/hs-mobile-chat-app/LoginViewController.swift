@@ -170,6 +170,13 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                 self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
+			
+			do{
+				try UserRegistrationManager.sharedInstance.saveUserEmail(user.email!)
+			}catch{
+				
+			}
+			
             
         }
     }
