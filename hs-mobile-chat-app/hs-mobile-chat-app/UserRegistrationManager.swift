@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 
 struct User {
-    var username:String
     var email:String
 }
 
@@ -24,11 +23,11 @@ class UserRegistrationManager {
     func saveUserEmail(email:String)throws -> Bool {
         
         guard foundUsers != nil else {
-            throw Error.ErrorUserListNil(msg:"User lis can't be nil")
+            throw Error.ErrorUserListNil(msg:"User list can't be nil")
         }
         
         if !userEmailExists(email) {
-            let data = ["email":email,"username":""]
+            let data = ["email":email]
             ref.child("users").childByAutoId().setValue(data)
             return true
         }
@@ -36,27 +35,10 @@ class UserRegistrationManager {
         return false
     }
     
-    func saveUsername(username:String,forEmail email:String) {
-        
-        let userQuery = (ref.child("users").child(email))
-        
-        
-    }
-    
-
     func userEmailExists(email:String) ->Bool {
         
         for user in foundUsers! {
             if user.email == email {return true}
-        }
-        
-        return false
-    }
-    
-    func userUsernameExists(username:String) ->Bool {
-        
-        for user in foundUsers! {
-            if user.username == username {return true}
         }
         
         return false
@@ -68,7 +50,7 @@ class UserRegistrationManager {
             if snapshot.value != nil {
                 let userSnapshot: FIRDataSnapshot! = snapshot
                 let userInfo = userSnapshot.value as! Dictionary<String,String>
-                self.foundUsers!.append(User(username: userInfo["username"]!, email: userInfo["email"]!))
+                self.foundUsers!.append(User(email: userInfo["email"]!))
             }
         
         })
