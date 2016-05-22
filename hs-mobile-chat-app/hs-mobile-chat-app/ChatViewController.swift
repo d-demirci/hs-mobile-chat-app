@@ -80,7 +80,7 @@ class ChatViewController: JSQMessagesViewController {
          typingRef.queryOrderedByValue().queryEqualToValue(true)
 
         
-        typingRef.observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+        typingRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             
             if snapshot.childrenCount == 1 && self.isTyping {
                 return
@@ -185,7 +185,6 @@ class ChatViewController: JSQMessagesViewController {
         super.textViewDidChange(textView)
         // If the text is not empty, the user is typing
         isTyping = textView.text != ""
-        print(textView.text != "")
     }
     
     func removeSpecialCharsFromString(text: String) -> String {
